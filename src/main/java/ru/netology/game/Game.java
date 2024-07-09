@@ -17,24 +17,21 @@ public class Game {
 
     }
 
+
+    //Проверка регистрации игрока
+    //-1 - в списках не значится
+    private void checkRegistration(String playerName) {
+        if (!registeredList.containsKey(playerName)) {      //проверка регистрации игрока
+            throw new NotRegisteredException(
+                    "Игрок " + playerName + " не зарегистрирован"
+            );
+        }
+    }
+
     //метод соревнования между двумя игроками
     public int round(String playerName1, String playerName2) {
-            if (!registeredList.containsKey(playerName1)) { //проверка регистрации игрока 1
-                throw new NotRegisteredException(
-                        "Игрок " + playerName1 + " не зарегистрирован"
-                );
-            }
-            if (!registeredList.containsKey(playerName2)) { //проверка регистрации игрока 2
-                throw new NotRegisteredException(
-                        "Игрок " + playerName2 + " не зарегистрирован"
-                );
-            }
-
-
-        // Битва
-        //0 - ничья,
-        // 1 - 1 игрок победил,
-        // 2 - 2 игрок победил
+        checkRegistration(playerName1);
+        checkRegistration(playerName2);
         if (registeredList.get(playerName1).getStrength() ==
                 registeredList.get(playerName2).getStrength()) {
             return 0;
@@ -44,7 +41,6 @@ public class Game {
         } else {
             return 2;
         }
-
 
     }
 }
